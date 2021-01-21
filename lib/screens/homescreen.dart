@@ -1,7 +1,5 @@
-import 'dart:collection';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:shopping_cart/screens/productscreen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -17,31 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [Icon(Icons.shopping_cart)],
         ),
         body: Container(
-          child: Center(
-            child: FutureBuilder(
-              future: DefaultAssetBundle.of(context)
-                  .loadString('assets/products.json'),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return CircularProgressIndicator();
-                }
-                var myData = json.decode(snapshot.data);
-                print(myData);
-                return ListView.builder(
-                  itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            Text(snapshot.data),
-                          ]),
-                    );
-                  },
-                  itemCount: myData == null ? 0 : myData.length,
-                );
-              },
-            ),
-          ),
+          child: ProductScreen(),
         ));
   }
 }
